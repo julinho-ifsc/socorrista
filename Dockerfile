@@ -24,6 +24,5 @@ RUN chmod 0755 /docker-entrypoint.sh && \
 
 WORKDIR "/socorrista"
 USER "socorrista"
-EXPOSE 3000
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["python", "/main.py"]
