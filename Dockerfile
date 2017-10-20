@@ -22,7 +22,7 @@ RUN chmod 0755 /docker-entrypoint.sh && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-WORKDIR "/socorrista"
+WORKDIR "/"
 USER "socorrista"
 ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["python", "/main.py"]
+CMD ["python", "main.py"]
