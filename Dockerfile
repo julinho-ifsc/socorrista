@@ -14,7 +14,7 @@ LABEL maintainer="thia.mdossantos@gmail.com" \
       org.label-schema.version="3.6" \
       org.label-schema.schema-version="1.0"
 
-COPY docker-entrypoint.sh requirements.txt main.py /
+COPY docker-entrypoint.sh requirements.txt client.py main.py /
 RUN chmod 0755 /docker-entrypoint.sh && \
     pip install --no-cache-dir -r requirements.txt && \
     groupadd socorrista && \
@@ -22,8 +22,7 @@ RUN chmod 0755 /docker-entrypoint.sh && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-WORKDIR "/socorrista"
+WORKDIR "/"
 USER "socorrista"
-EXPOSE 3000
 ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["python", "/main.py"]
+CMD ["python", "main.py"]
