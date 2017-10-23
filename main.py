@@ -1,4 +1,4 @@
-import os, json
+import os, json, logging
 import paho.mqtt.client as mqtt
 from client import RoutesClient
 
@@ -7,6 +7,12 @@ def not_empty(string):
 
 def on_connect(client, userdata, flags, rc):
     client.subscribe(ROBOT + '/#')
+
+def format_message(topic, message):
+    if topic == 'check':
+        return message.upper()
+
+    return True if message == '1' else False
 
 def on_message(client, userdata, msg):
     try:
@@ -19,15 +25,15 @@ def on_message(client, userdata, msg):
 
         message = str(msg.payload.decode('utf-8'))
 
-        status = True if message == '1' else False
+        status = format_message(topic, message)
 
         routes_client.status({
             'topic': topic,
             'status': status
         })
-        print(topic.upper() + ' ' + message)
+        logger.info(topic.upper() + ' ' + message)
     except Exception as e:
-        print(e)
+        logger.error('Failed to make request')
 
 
 def main():
@@ -51,5 +57,11 @@ if __name__ == '__main__':
         key_path='private.key',
         client_id=CLIENT_ID
     )
+
+    logging.basicConfig(
+        format='%(asctime)s [%(levelname)s] %(name)s: %(message)s',
+        level=logging.INFO
+    )
+    logger = logging.getLogger(__name__)
 
     main()
