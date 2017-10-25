@@ -6,6 +6,7 @@ def not_empty(string):
     return string != ''
 
 def on_connect(client, userdata, flags, rc):
+    print('Connected')
     client.subscribe(ROBOT + '/#')
 
 def format_message(topic, message):
