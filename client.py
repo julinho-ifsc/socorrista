@@ -7,12 +7,12 @@ class RoutesClient:
         self.base_url = base_url
         self.key_path = key_path
         self.params = self.get_params(client_id)
-        self.headers = self.get_headers()
+        self.key = self.get_key()
 
     def get_routes(self):
         response = requests.get(
             self.base_url + '/routes',
-            headers=self.headers,
+            headers=self.get_headers(),
             params=self.params
         )
         return response.json()
@@ -21,7 +21,7 @@ class RoutesClient:
         response = requests.post(
             self.base_url + '/status',
             json=message,
-            headers=self.headers,
+            headers=self.get_headers(),
             params=self.params
         )
         return response.json()
@@ -30,7 +30,7 @@ class RoutesClient:
         response = requests.post(
             self.base_url + '/walk',
             json=message,
-            headers=self.headers,
+            headers=self.get_headers(),
             params=self.params
         )
         return response.json()
@@ -43,7 +43,7 @@ class RoutesClient:
         return {'Authorization': 'Bearer ' + token.decode('utf-8')}
 
     def get_token(self):
-        key = self.get_key()
+        key = self.key
         expiration = datetime.datetime.utcnow() + datetime.timedelta(seconds=7200)
         body = {'exp': expiration}
         return jwt.encode(body, key, algorithm='RS256')
