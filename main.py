@@ -52,7 +52,7 @@ if __name__ == '__main__':
     ROUTES_PORT = os.getenv('ROUTES_PORT', '80')
     CLIENT_ID = os.getenv('CLIENT_ID', '1')
 
-    ALLOWED_TOPICS = ['help', 'enable', 'check']
+    ALLOWED_TOPICS = ['sos', 'enable', 'check']
 
     routes_client = RoutesClient(
         base_url='http://' + ROUTES_HOST + ':' + ROUTES_PORT,
