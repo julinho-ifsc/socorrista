@@ -30,7 +30,8 @@ def on_message(client, userdata, msg):
 
         routes_client.status({
             'topic': topic,
-            'status': status
+            'status': status,
+            'robot': ROBOT
         })
         logger.info(topic.upper() + ' ' + message)
     except Exception as e:
@@ -46,7 +47,7 @@ def main():
 
 if __name__ == '__main__':
     ROBOT = os.getenv('ROBOT', 'julinho')
-    BROKER = os.getenv('MQTT_BROKER', 'mqtt.sj.ifsc.edu.br')
+    BROKER = os.getenv('MQTT_BROKER', 'nuvem2.sj.ifsc.edu.br')
     ROUTES_HOST = os.getenv('ROUTES_HOST', 'localhost')
     ROUTES_PORT = os.getenv('ROUTES_PORT', '80')
     CLIENT_ID = os.getenv('CLIENT_ID', '1')
